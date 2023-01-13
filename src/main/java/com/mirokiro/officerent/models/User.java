@@ -4,6 +4,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -17,6 +19,9 @@ public class User implements UserDetails {
     private String username;
     @Column(name = "password",nullable = false)
     private String password;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
+
 
 
     public User() {}
@@ -36,6 +41,9 @@ public class User implements UserDetails {
 
     public String getUsername() {
         return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -60,17 +68,29 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return getRoles();
     }
-
+    @Override
     public String getPassword() { return password; }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+    public String roleToString(){
+        Set<Role> usersRole = getRoles();
+        Set<String> stringSet = new HashSet<>();
+        for (Role role: usersRole) {
+            stringSet.add(role.getName());
+        }
+        return String.join(", ", stringSet);
+    }
+
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
     @Override
     public String toString() {

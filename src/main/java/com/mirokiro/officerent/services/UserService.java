@@ -1,20 +1,24 @@
 package com.mirokiro.officerent.services;
 
+import com.mirokiro.officerent.models.Role;
 import com.mirokiro.officerent.models.User;
-import com.mirokiro.officerent.repos.UserRepo;
+import com.mirokiro.officerent.repos.RoleRepository;
+import com.mirokiro.officerent.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
 
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
-    private UserRepo userRepository;
-
+    private UserRepository userRepository;
+    @Autowired
+    RoleRepository roleRepository;
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
 
@@ -23,6 +27,7 @@ public class UserService implements UserDetailsService {
         if (userFromDb != null) {
             return false;
         }
+        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
@@ -39,8 +44,9 @@ public class UserService implements UserDetailsService {
         UserDetails userDetails = org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .roles("USER")
+                .roles(user.roleToString())
                 .build();
+        System.out.println("userDetails= "+userDetails);
         return userDetails;
     }
 }

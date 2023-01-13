@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ADMIN PAGE
+<table class="m-3 table table-borderless">
+<tr th:each="el : ${users}">
+    <td th:text="${el.username}"></td>
+    <td th:text="${el.roleToString()}"></td>
+</tr>
+    </table>
+</body>
+</html>

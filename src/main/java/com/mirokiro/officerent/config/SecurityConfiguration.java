@@ -1,5 +1,6 @@
 package com.mirokiro.officerent.config;
 
+import com.mirokiro.officerent.controllers.CustomAccessDeniedHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -22,7 +24,11 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/","/home").permitAll()
                         .requestMatchers("/registration").anonymous()
+                        .requestMatchers("/admin").hasRole("ADMIN_ROLE")
                         .anyRequest().authenticated()
+                )
+                .exceptionHandling((exceptions) -> exceptions
+                        .accessDeniedHandler(accessDeniedHandler())
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
@@ -37,6 +43,10 @@ public class SecurityConfiguration {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
     }
 
 //    @Bean
