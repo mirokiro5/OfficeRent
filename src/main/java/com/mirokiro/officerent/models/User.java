@@ -136,4 +136,12 @@ public class User implements UserDetails {
     public void setOffices(List<Office> offices) {
         this.offices = offices;
     }
+    public String officesToString(){
+        List<Office> usersOffices = getOffices();
+        Set<String> stringSet = new HashSet<>();
+        for (Office office: usersOffices) {
+            stringSet.add(office.getName());
+        }
+        return String.join(", ", stringSet);
+    }
 }

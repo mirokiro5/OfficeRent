@@ -27,7 +27,7 @@ public class UserService implements UserDetailsService {
         if (userFromDb != null) {
             return false;
         }
-        user.setRoles(Collections.singleton(new Role(2L, "ROLE_USER")));
+        user.setRoles(Collections.singleton(new Role(3L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         System.out.println("saved user= "+user+" roles: "+user.roleToString());
         userRepository.save(user);

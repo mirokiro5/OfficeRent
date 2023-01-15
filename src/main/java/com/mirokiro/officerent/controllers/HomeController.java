@@ -22,11 +22,11 @@ public class HomeController {
     public String login() {
         return "login2";
     }
-    @PostMapping("/login")
-    public String loginPost() {
-        System.out.println("login");
-        return "redirect:/";
-    }
+//    @PostMapping("/login")
+//    public String loginPost() {
+//        System.out.println("login");
+//        return "redirect:/";
+//    }
     @GetMapping("/about")
     public String about(){
         return "about";

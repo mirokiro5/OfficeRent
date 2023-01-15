@@ -3,6 +3,7 @@ package com.mirokiro.officerent.models;
 import jakarta.persistence.*;
 
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -19,7 +20,8 @@ public class Office implements Serializable {
     private String name;
     @Column(name = "address", nullable = false)
     private String address;
-    @Column(name = "description", nullable = false)
+    @Size(min = 10, max = 300)
+    @Column(name = "description", length = 300)
     private String description;
     @Column(name = "image")
     private String image;

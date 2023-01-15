@@ -26,6 +26,14 @@ public class OfficeRegController {
     public String addOffice(@ModelAttribute("officeForm") Office officeForm, BindingResult bindingResult, Model model){
         //userForm.setId(1);
         System.out.println("userForm= "+officeForm);
+        if(officeForm.getDescription().length() > 300){
+            model.addAttribute("usernameError", "Описание должно быть не более 300 символов");
+            return "officereg";
+        }
+        if(officeForm.getDescription().length() < 10){
+            model.addAttribute("usernameError", "Описание должно быть не менее 10 символов");
+            return "officereg";
+        }
         if (!officeService.saveOffice(officeForm)) {
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
             return "officereg";

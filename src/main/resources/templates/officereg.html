@@ -79,16 +79,9 @@
             <!--                            <label class="form-label" for="typePasswordX-3"></label>-->
             <!--                        </div>-->
 
-            <div th:if="${passwordError}">
-              <div class="alert alert-danger">Пароли не совпадают
-              </div>
-            </div>
 
             <div th:if="${usernameError}">
               <div class="alert alert-info" th:text="${usernameError}"></div>
-              <div class="alert alert-info" th:text="${title}"></div>
-              <div class="alert alert-info" th:text="${passwordError}"></div>
-              <!--                            <div class="alert alert-info">Пользователь с таким именем уже существует</div>-->
             </div>
 
             <button class="btn btn-lg btn-secondary fw-bold border-white bg-white btn-block" type="submit" name="login-submit"

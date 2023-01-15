@@ -31,7 +31,7 @@
                         <h3 th:text="${p.name}"></h3>
                         <p th:text="${p.price}+ ' RUB / month'"></p>
                         <p>
-                            <a class="btn btn-primary" th:href="@{/bookPartOne(car_id=${p.id})}">Book Now!</a>
+                            <a class="btn btn-primary" th:href="@{/add-office(office_id=${p.id})}">Book Now!</a>
                             <br>
                             <a class="btn btn-secondary" th:href="@{/officeDetails(office_id=${p.id})}">More Info</a>
                         </p>

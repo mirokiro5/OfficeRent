@@ -135,11 +135,11 @@
   <div class="container-body mt-4">
     <div class="row r3">
       <div class="col-md-5 p-0 klo">
-        <div class="col-md-2">
-          <li>Адрес <p th:text="${officeById.address}"></p></li>
-          <li>Описание <p th:text="${officeById.description}"></p></li>
-          <li>Цена <p th:text="${officeById.price}"></p></li>
-        </div>
+
+          <b>Адрес</b> <p th:text="${officeById.address}"></p>
+          <b>Описание</b> <p th:text="${officeById.description}"></p>
+          <b>Цена</b> <p th:text="${officeById.price}"></p>
+
       </div>
       <div class="col-md-7"> <img th:src="@{'/img/'+${officeById.image}}" width="70%" height="70%"> </div>
     </div>
