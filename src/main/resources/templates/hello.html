@@ -6,6 +6,21 @@
 </head>
 <body>
 <h1 th:inline="text">Hello <span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h1>
+<div sec:authorize="hasRole('ADMIN_ROLE')">
+<a href="/admin">Admin Page</a>
+</div>
+Арендовано:
+<table>
+  <tr>
+    <th>Car</th>
+<!--    <th>Start date</th>-->
+<!--    <th>End date</th>-->
+  </tr>
+  <tr th:each="rent : ${rents}">
+    <td th:text="${rent.car.name}"></td>
+<!--    <td th:text="${rent.startDate}"></td>-->
+<!--    <td th:text="${rent.endDate}"></td>-->
+  </tr>
 <form th:action="@{/logout}" method="post">
   <input type="submit" value="Sign Out"/>
 </form>

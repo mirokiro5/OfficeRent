@@ -18,7 +18,7 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
 
@@ -27,16 +27,25 @@ public class UserService implements UserDetailsService {
         if (userFromDb != null) {
             return false;
         }
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        user.setRoles(Collections.singleton(new Role(2L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        System.out.println("saved user= "+user+" roles: "+user.roleToString());
         userRepository.save(user);
         return true;
+    }
+    public boolean deleteUser(Long userId) {
+        if (userRepository.findById(userId).isPresent()) {
+            userRepository.deleteById(userId);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final User user = userRepository.findByUsername(username);
         System.out.println("user= "+user);
+        System.out.println(" roles: "+user.roleToString());
 
         if (user == null) {
             throw new UsernameNotFoundException("Пользователь не найден");

@@ -21,21 +21,26 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/","/home").permitAll()
+                        .requestMatchers("/","/home","/about","/css/**","/officeDetails","/img/**").permitAll()
                         .requestMatchers("/registration").anonymous()
-                        .requestMatchers("/admin").hasRole("ADMIN_ROLE")
+                        .requestMatchers("/admin","/admin/**").hasRole("ADMIN_ROLE")
                         .anyRequest().authenticated()
                 )
-                .exceptionHandling((exceptions) -> exceptions
-                        .accessDeniedHandler(accessDeniedHandler())
-                )
+//                .exceptionHandling((exceptions) -> exceptions
+//                        .accessDeniedHandler(accessDeniedHandler())
+//                )
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/hello")
                         .permitAll()
                 )
-                .logout((logout) -> logout.permitAll());
+                .logout((logout) -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .permitAll()
+                );
 
         return http.build();
     }

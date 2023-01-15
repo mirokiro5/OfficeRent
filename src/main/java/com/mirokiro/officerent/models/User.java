@@ -3,9 +3,9 @@ import jakarta.persistence.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.GrantedAuthority;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import javax.validation.constraints.Digits;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -21,6 +21,15 @@ public class User implements UserDetails {
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+    @Digits(integer = 10, fraction = 2)
+    @Column(name = "total_price")
+    private BigDecimal totalPrice = new BigDecimal(0);
+    @Column(name = "is_paid")
+    private boolean isPaid = false;
+    @Column(name = "rented_offices")
+    private int rentedOffices;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Office> offices = new ArrayList<>();
 
 
 
@@ -95,5 +104,36 @@ public class User implements UserDetails {
     @Override
     public String toString() {
         return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
+    }
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
+    }
+
+    public int getRentedOffices() {
+        return rentedOffices;
+    }
+
+    public void setRentedOffices(int rentedOffices) {
+        this.rentedOffices = rentedOffices;
+    }
+
+    public List<Office> getOffices() {
+        return offices;
+    }
+
+    public void setOffices(List<Office> offices) {
+        this.offices = offices;
     }
 }
