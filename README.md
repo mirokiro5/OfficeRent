@@ -1,4 +1,3 @@
-# OfficeRent
 <p align="center">
       <img src="https://www.logomaker.com/api/main/images/1j+ojFVDOMkX9Wytexe43D6kh...SGpBFNkB3OwXs1M3EMoAJtlicujvpv8PU6" alt="Project Logo" width="30%">
 </p>
