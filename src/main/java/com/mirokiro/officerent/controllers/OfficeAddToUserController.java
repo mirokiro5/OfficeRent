@@ -59,9 +59,9 @@ public class OfficeAddToUserController {
         RentedDate rentedDate = new RentedDate();
         rentedDate.setStartDate(startDate);
         rentedDate.setEndDate(endDate);
-//        rentedDate.setOffice(newOffice);
+        rentedDate.setOffice(newOffice);
         rentedDate.setUser(user);
-        newOffice.setRentedDate(rentedDate);
+        newOffice.getRentedDates().add(rentedDate);
         System.out.println("------------------Rent------------------");
         System.out.println("rentedDate= "+rentedDate.getId()+" "+rentedDate.getStartDate()+" "+rentedDate.getEndDate()+" "+rentedDate.getUser().getUsername());
         System.out.println("user= "+user);

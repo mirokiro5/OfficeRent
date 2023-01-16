@@ -1,12 +1,15 @@
 package com.mirokiro.officerent.models;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.Authentication;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.net.Authenticator;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,8 +34,8 @@ public class Office implements Serializable {
     private BigDecimal price;
     @ManyToMany(mappedBy = "offices")
     private List<User> users = new ArrayList<>();
-    @OneToOne(fetch = FetchType.EAGER)
-    private RentedDate rentedDate;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<RentedDate> rentedDates= new ArrayList<>();
 
     public Office() {
     }
@@ -99,11 +102,27 @@ public class Office implements Serializable {
         this.users = users;
     }
 
-    public RentedDate getRentedDate() {
-        return rentedDate;
+    public List<RentedDate> getRentedDates() {
+        return rentedDates;
     }
+//    public List<RentedDate> getRentedDatesByUser(User user) {
+//        List<RentedDate> rentedDatesByUser = new ArrayList<>();
+//        for (RentedDate rentedDate : rentedDates) {
+//            if (rentedDate.getUser().equals(user)) {
+//                rentedDatesByUser.add(rentedDate);
+//            }
+//        }
+//        return rentedDatesByUser;
+//    }
 
-    public void setRentedDate(RentedDate rentedDate) {
-        this.rentedDate = rentedDate;
+    public void setRentedDates(List<RentedDate> rentedDates) {
+        this.rentedDates = rentedDates;
+    }
+    public String rentedDatesToString() {
+        StringBuilder sb = new StringBuilder();
+        for (RentedDate rentedDate : rentedDates) {
+            sb.append(rentedDate.toString());
+        }
+        return sb.toString();
     }
 }

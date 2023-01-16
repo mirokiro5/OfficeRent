@@ -18,8 +18,10 @@
   </tr>
   <tr th:each="u : ${user.getOffices()}">
     <td th:text="${u.name}"></td>
-    <td th:text="${u.getRentedDate().startDate}"></td>
-    <td th:text="${u.getRentedDate().endDate}"></td>
+      <td th:text="${rentedDatesByUser.get(0).startDate}"></td>
+      <td th:text="${rentedDatesByUser.get(0).endDate}"></td>
+<!--    <td th:text="${u.rentedDatesToString()}"></td>-->
+<!--    <td th:text="${u.getRentedDates()}"></td>-->
   </tr>
 </table>
 <form th:action="@{/logout}" method="post">

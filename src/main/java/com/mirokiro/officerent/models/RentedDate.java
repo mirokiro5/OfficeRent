@@ -25,8 +25,8 @@ public class RentedDate {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToOne(mappedBy = "rentedDate")
-    private Office offices;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Office office;
 
     public RentedDate(LocalDate startDate, LocalDate endDate, Office newOffice, User user) {
     }
@@ -65,11 +65,12 @@ public class RentedDate {
         this.user = user;
     }
 
-    public Office getOffices() {
-        return offices;
+
+    public Office getOffice() {
+        return office;
     }
 
-    public void setOffices(Office offices) {
-        this.offices = offices;
+    public void setOffice(Office office) {
+        this.office = office;
     }
 }
