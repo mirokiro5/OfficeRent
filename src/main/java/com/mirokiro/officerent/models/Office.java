@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "office")
@@ -28,9 +29,10 @@ public class Office implements Serializable {
     @Digits(integer = 5, fraction = 2)
     @Column(name = "price")
     private BigDecimal price;
-
     @ManyToMany(mappedBy = "offices")
     private List<User> users = new ArrayList<>();
+    @OneToOne(fetch = FetchType.EAGER)
+    private RentedDate rentedDate;
 
     public Office() {
     }
@@ -95,5 +97,13 @@ public class Office implements Serializable {
 
     public void setCustomers(List<User> customers) {
         this.users = users;
+    }
+
+    public RentedDate getRentedDate() {
+        return rentedDate;
+    }
+
+    public void setRentedDate(RentedDate rentedDate) {
+        this.rentedDate = rentedDate;
     }
 }

@@ -43,7 +43,7 @@ public class OfficeAddToUserController {
                                        @RequestParam(value = "startDate", defaultValue = "1800-01-01", required = false)  @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate,
                                        @RequestParam(value = "endDate", defaultValue = "3000-01-01", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate) {
         User user = userRepository.findByUsername(authentication.getName());
-        Office newOffice = officeRepository.findById(office_id);
+        Office newOffice = officeRepository.findById(office_id);;
         for (Office o : user.getOffices()) {
             if (Objects.equals(o.getName(), newOffice.getName())) {
                 Iterable<Office> offices = officeRepository.findAll();
@@ -59,12 +59,14 @@ public class OfficeAddToUserController {
         RentedDate rentedDate = new RentedDate();
         rentedDate.setStartDate(startDate);
         rentedDate.setEndDate(endDate);
-        rentedDate.setOffice(newOffice);
+//        rentedDate.setOffice(newOffice);
         rentedDate.setUser(user);
+        newOffice.setRentedDate(rentedDate);
         System.out.println("------------------Rent------------------");
-        System.out.println("rentedDate= "+rentedDate.getId()+" "+rentedDate.getStartDate()+" "+rentedDate.getEndDate()+" "+rentedDate.getOffice().getName()+" "+rentedDate.getUser().getUsername());
+        System.out.println("rentedDate= "+rentedDate.getId()+" "+rentedDate.getStartDate()+" "+rentedDate.getEndDate()+" "+rentedDate.getUser().getUsername());
         System.out.println("user= "+user);
         rentedDateRepository.save(rentedDate);
+        officeRepository.save(newOffice);
         userRepository.save(user);
         return "redirect:/personal";
     }

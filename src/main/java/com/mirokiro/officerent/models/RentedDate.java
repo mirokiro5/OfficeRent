@@ -3,6 +3,9 @@ package com.mirokiro.officerent.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "rented_date")
@@ -16,12 +19,14 @@ public class RentedDate {
 
     @Column(name = "end_date")
     private LocalDate endDate;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "office_id")
-    private Office office;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "office_id")
+//    private Office office;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+    @OneToOne(mappedBy = "rentedDate")
+    private Office offices;
 
     public RentedDate(LocalDate startDate, LocalDate endDate, Office newOffice, User user) {
     }
@@ -52,19 +57,19 @@ public class RentedDate {
         this.endDate = endDate;
     }
 
-    public Office getOffice() {
-        return office;
-    }
-
-    public void setOffice(Office office) {
-        this.office = office;
-    }
-
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Office getOffices() {
+        return offices;
+    }
+
+    public void setOffices(Office offices) {
+        this.offices = offices;
     }
 }

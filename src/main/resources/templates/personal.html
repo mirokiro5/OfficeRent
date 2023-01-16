@@ -16,15 +16,10 @@
     <th>Start date</th>
     <th>End date</th>
   </tr>
-  <div th:each="u : ${user.getOffices()}">
+  <tr th:each="u : ${user.getOffices()}">
     <td th:text="${u.name}"></td>
-  </div>
-  <div th:each="r : ${rentedDates}">
-    <td th:text="${r.startDate}"></td>
-  </div>
-  <div th:each="r : ${rentedDates}">
-    <td th:text="${r.endDate}"></td>
-  </div>
+    <td th:text="${u.getRentedDate().startDate}"></td>
+    <td th:text="${u.getRentedDate().endDate}"></td>
   </tr>
 </table>
 <form th:action="@{/logout}" method="post">

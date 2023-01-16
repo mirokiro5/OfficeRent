@@ -15,6 +15,7 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model){
         Iterable<Office> offices = officeRepository.findAll();
+        System.out.println("offices= "+offices);
         model.addAttribute("offices", offices);
         return "home";
     }
