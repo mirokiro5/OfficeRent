@@ -9,5 +9,6 @@ INSERT INTO office(address, description, image, name, price) VALUES
                         ('address4', 'description4', 'office.jpg', 'name4', 4),
                         ('address5', 'description5', 'office.jpg', 'name5', 5);
 UPDATE users_roles SET roles_id = 1 WHERE user_id = 1;
+UPDATE users_roles SET roles_id = 2 WHERE user_id = 3;
 
 SELECT * FROM office;

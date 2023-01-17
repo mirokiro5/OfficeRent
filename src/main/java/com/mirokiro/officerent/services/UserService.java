@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -27,7 +28,7 @@ public class UserService implements UserDetailsService {
         if (userFromDb != null) {
             return false;
         }
-        user.setRoles(Collections.singleton(new Role(3L, "ROLE_USER")));
+        user.getRoles().add(new Role(1L, "ROLE_USER"));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         System.out.println("saved user= "+user+" roles: "+user.roleToString());
         userRepository.save(user);

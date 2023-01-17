@@ -20,7 +20,7 @@ public class User implements UserDetails {
     @Column(name = "password",nullable = false)
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    private List<Role> roles;
     @Digits(integer = 10, fraction = 2)
     @Column(name = "total_price")
     private BigDecimal totalPrice = new BigDecimal(0);
@@ -85,11 +85,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
     public String roleToString(){
-        Set<Role> usersRole = getRoles();
+        List<Role> usersRole = getRoles();
         Set<String> stringSet = new HashSet<>();
         for (Role role: usersRole) {
             stringSet.add(role.getName());
@@ -98,7 +98,7 @@ public class User implements UserDetails {
     }
 
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
     @Override

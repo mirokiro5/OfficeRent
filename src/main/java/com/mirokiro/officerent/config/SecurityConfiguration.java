@@ -38,9 +38,9 @@ public class SecurityConfiguration {
                         .requestMatchers("/admin","/admin/**").hasRole("ADMIN_ROLE")
                         .anyRequest().authenticated()
                 )
-//                .exceptionHandling((exceptions) -> exceptions
-//                        .accessDeniedHandler(accessDeniedHandler())
-//                )
+                .exceptionHandling((exceptions) -> exceptions
+                        .accessDeniedHandler(accessDeniedHandler())
+                )
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/personal")
