@@ -6,15 +6,25 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </head>
-<body>
-ADMIN PAGE
-<table class="m-3 table table-borderless">
+<body class="bg-dark">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+<table class="table table-dark table-stripped">
+    <thead>
+    <tr>
+        <th scope="col">Имя польователя</th>
+        <th scope="col">Роль</th>
+        <th scope="col">Арендованные офисы</th>
+    </tr>
+    </thead>
+    <tbody>
 <tr th:each="el : ${users}">
     <td th:text="${el.username}"></td>
     <td th:text="${el.roleToString()}"></td>
+    <td th:text="${el.officesToString()}"></td>
 </tr>
+    </tbody>
     </table>
-<div th:each="el : ${users}" class="col-6 bg-light mx-auto p-3" style="border-radius: 15px">
+<div th:each="el : ${users}" class="col-6 bg-dark-subtle mx-auto p-3">
     <div class="row mx-3 mb-3">
         <label for="name" class="p-0 col col-form-label">Имя:</label>
         <p class="col-sm-9 m-0" th:text="${el.username}" id="name"></p>
@@ -38,6 +48,7 @@ ADMIN PAGE
             <div th:if="${error}" th:text="${error}" class="alert alert-danger my-3" role="alert"></div>
         </form>
     </div>
+</div>
 </div>
 </body>
 </html>

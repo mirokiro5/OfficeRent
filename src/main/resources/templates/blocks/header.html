@@ -80,43 +80,48 @@
   </nav>
 </div>
 
-<!--<nav th:fragment="header-into" class="navbar navbar-expand navbar-dark bg-dark" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
-<!--  <div class="container">-->
-<!--    <a class="d-flex navbar-brand" href="/personal">-->
-<!--      <p class="m-0 p-0" style="color: #ffa53a"> Task <span style="color: white">Manager</span></p>-->
-<!--    </a>-->
-<!--    <ul class="navbar-nav  me-auto nav mx-4">-->
-<!--      <li class="nav-item">-->
-<!--        <a class="nav-link" aria-current="page" href="/personal">Главная</a>-->
-<!--      </li>-->
-<!--      <li class="nav-item dropdown">-->
-<!--        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"-->
-<!--           data-bs-toggle="dropdown" aria-expanded="false">-->
-<!--          Задачи-->
-<!--        </a>-->
-<!--        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">-->
-<!--          <li><a class="dropdown-item" href="/task">Все мои задачи</a></li>-->
-<!--          <li><a sec:authorize="hasAnyRole('ROLE_EDITOR','ROLE_ADMIN')" class="dropdown-item" href="/task/author">Для автора</a></li>-->
-<!--          <li><a class="dropdown-item" href="/task/executor">Для исполнители</a></li>-->
-<!--          <li><a class="dropdown-item" href="/task/observer">Для наблюдателя</a></li>-->
-<!--          <li><a class="dropdown-item" href="/task/wait">Ждет ответа</a></li>-->
-<!--          <li><a class="dropdown-item" href="/task/close">Закрыто</a></li>-->
-<!--        </ul>-->
-<!--      </li>-->
-<!--    </ul>-->
-<!--    <a sec:authorize="hasAnyRole('ROLE_EDITOR','ROLE_ADMIN')" href="/creatTask" class="btn btn-warning text-white" style="font-weight: bold; background: #d59b0e; text-shadow: black 2px 0px 5px">Создать заказ</a>-->
-<!--    <a sec:authorize="hasRole('ROLE_ADMIN')" class="ms-4" href="/setting" style="color: white"><i style="font-size: 1.8rem" class="bi bi-gear-wide-connected"></i></a>-->
-<!--    <ul class="navbar-nav nav mx-3">-->
-<!--      <li class="nav-item dropdown">-->
-<!--        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkUser" role="button"-->
-<!--           data-bs-toggle="dropdown" aria-expanded="false" th:text="${#authentication.name}">-->
-<!--        </a>-->
-<!--        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUser">-->
-<!--          <li><a class="dropdown-item" href="/logout">Выход</a></li>-->
-<!--        </ul>-->
-<!--      </li>-->
-<!--    </ul>-->
-<!--  </div>-->
-<!--</nav>-->
+<div th:fragment="header-into" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+    <input hidden="true" type="submit" value="Sign Out"/>
+  </form>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/"><img th:src="@{'/img/logo.png'}" width="50%" height="50%s"></a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Главная</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/personal">Личный кабинет</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasRole('ADMIN_ROLE')">
+              <a href="/admin" class="nav-link">Управление</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasAnyRole('ADMIN_ROLE','MANAGER_ROLE')">
+              <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Офисы</a>
+          <ul class="dropdown-menu">
+              <li><a href="/registration/office" class="dropdown-item">Добавление офиса</a></li>
+            <li><a href="/officeDetails/change" class="dropdown-item">Редактирование офиса</a></li>
+          </ul>
+          </li>
+          <li class="nav-item" sec:authorize="isAuthenticated()">
+            <ul class="navbar-nav nav mx-3">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false" th:text="${#authentication.name}">
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonDark">
+                  <li><a class="dropdown-item" href="javascript: document.logoutForm.submit()"> Выход</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
 </body>
 </html>

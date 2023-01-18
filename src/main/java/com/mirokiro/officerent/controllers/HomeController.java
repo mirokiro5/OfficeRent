@@ -2,6 +2,7 @@ package com.mirokiro.officerent.controllers;
 
 import com.mirokiro.officerent.models.Office;
 import com.mirokiro.officerent.repos.OfficeRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,8 @@ public class HomeController {
     @Autowired
     OfficeRepository officeRepository;
     @GetMapping("/")
-    public String home(Model model){
+    public String home(Model model, HttpServletRequest request){
+        System.out.println("hostname= "+ request.getContextPath());
         Iterable<Office> offices = officeRepository.findAll();
         System.out.println("offices= "+offices);
         model.addAttribute("offices", offices);

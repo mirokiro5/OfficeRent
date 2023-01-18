@@ -5,7 +5,6 @@
 ## Описание
 OfficeRent - это веб-сервис, использующийся для обработки заявок поступающих от арендаторов офисного центра.
 
-### Демо сайта: http://officerent.zyxelhome.keenetic.name
 ## Использованные технологии
 Java, Maven, Spring Framework, MySQL
 
